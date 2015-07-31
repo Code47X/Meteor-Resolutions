@@ -6,6 +6,22 @@ if (Meteor.isClient) {
       return Resolutions.find();
     }
   });
+
+  Template.body.events({
+    'submit .new-resolution': function (event) {
+      var title = event.target.title.value;
+
+      Resolutions.insert({
+        title: title,
+        createdAt: new Date()
+      });
+
+      event.target.title.value = "";
+
+      // The return false keeps the page form doing a refresh on the submit action.
+      return false;
+    }
+  });
 }
 
 if (Meteor.isServer) {
